@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: ${restaurantsServiceAppProfile}
+  application:
+    name: restaurants-service
+redis:
+  host: ${redisHost}
+  port: ${redisPort}
+  database: ${redisDatabase}
+server:
+  servlet:
+    context-path: /restaurants_service
+
