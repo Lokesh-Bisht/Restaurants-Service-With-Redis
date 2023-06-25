@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: ${restaurantsServiceAppProfile}
+  application:
+    name: restaurants-service
+server:
+  servlet:
+    context-path: /restaurants_service
