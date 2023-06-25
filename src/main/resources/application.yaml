@@ -3,6 +3,10 @@ spring:
     active: ${restaurantsServiceAppProfile}
   application:
     name: restaurants-service
+  data:
+    mongodb:
+      uri: ${restaurantsServiceAppMongoURI}
+    database: ${restaurantsServiceMongoDbName}
 redis:
   host: ${redisHost}
   port: ${redisPort}
