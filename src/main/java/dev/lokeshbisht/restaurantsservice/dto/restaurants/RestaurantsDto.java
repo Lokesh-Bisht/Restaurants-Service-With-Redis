@@ -4,12 +4,28 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 public class RestaurantsDto {
 
+    @JsonProperty("name")
+    private String name;
+
+    @JsonProperty("uuid")
+    private UUID uuid;
+
     @JsonProperty("veg")
     private Boolean veg;
+
+    @JsonProperty("is_new")
+    private Boolean isNew;
+
+    @JsonProperty("avg_rating")
+    private Float avgRating;
+
+    @JsonProperty("total_ratings")
+    private Integer totalRatings;
 
     @JsonProperty("total_ratings_string")
     private String totalRatingsString;
