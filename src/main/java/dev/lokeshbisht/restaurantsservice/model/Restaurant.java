@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Data
 @Document
-public class Restaurants {
+public class Restaurant {
 
     private String name;
 
