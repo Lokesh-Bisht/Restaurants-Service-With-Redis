@@ -5,12 +5,23 @@ import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Document
 public class Restaurants {
 
+    private String name;
+
+    private UUID uuid;
+
     private Boolean veg;
+
+    private Boolean isNew;
+
+    private Float avgRating;
+
+    private Integer totalRatings;
 
     private String totalRatingsString;
 
