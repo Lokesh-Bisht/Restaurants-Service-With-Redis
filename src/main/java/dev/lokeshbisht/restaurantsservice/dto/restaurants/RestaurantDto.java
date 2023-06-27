@@ -3,6 +3,7 @@ package dev.lokeshbisht.restaurantsservice.dto.restaurants;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,6 +12,9 @@ public class RestaurantDto {
 
     @JsonProperty("name")
     private String name;
+
+    @JsonProperty("id")
+    private Integer restaurantId;
 
     @JsonProperty("uuid")
     private UUID uuid;
@@ -37,7 +41,7 @@ public class RestaurantDto {
     private Integer costForTwo;
 
     @JsonProperty("cost_for_two_string")
-    private Integer costForTwoString;
+    private String costForTwoString;
 
     @JsonProperty("delivery_time")
     private Double deliveryTime;
@@ -53,4 +57,16 @@ public class RestaurantDto {
 
     @JsonProperty("address")
     private AddressDto addressDto;
+
+    @JsonProperty("created_by")
+    private String createdBy;
+
+    @JsonProperty("created_at")
+    private Date createdAt;
+
+    @JsonProperty("updated_by")
+    private String updatedBy;
+
+    @JsonProperty("updated_at")
+    private Date updatedAt;
 }
