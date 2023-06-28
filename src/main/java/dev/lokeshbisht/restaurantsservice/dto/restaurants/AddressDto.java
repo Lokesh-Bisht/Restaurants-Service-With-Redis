@@ -1,6 +1,7 @@
 package dev.lokeshbisht.restaurantsservice.dto.restaurants;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.Date;
@@ -8,24 +9,29 @@ import java.util.Date;
 @Data
 public class AddressDto {
 
+    @NotNull(message = "RestaurantId is required")
     @JsonProperty("restaurant_id")
     private Integer restaurantId;
 
+    @NotNull(message = "Address is required")
     @JsonProperty("address")
     private String address;
 
     @JsonProperty("locality")
     private String locality;
 
+    @NotNull(message = "City is required")
     @JsonProperty("city")
     private String city;
 
+    @NotNull(message = "State is required")
     @JsonProperty("state")
     private String state;
 
     @JsonProperty("country")
     private String country;
 
+    @NotNull(message = "Zip code is required")
     @JsonProperty("zip_code")
     private String zipCode;
 
