@@ -6,6 +6,7 @@ spring:
   data:
     mongodb:
       uri: ${restaurantsServiceAppMongoURI}
+      uuid-representation: standard
     database: ${restaurantsServiceMongoDbName}
 redis:
   host: ${redisHost}
