@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.Date;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -39,11 +41,12 @@ public class RestaurantServiceImpl implements RestaurantService {
     public RestaurantDto createRestaurant(RestaurantDto restaurantDto) {
         logger.info("Create restaurant: {}", restaurantDto);
         Restaurant restaurant = restaurantMapper.restaurantDtoToRestaurantMapper(restaurantDto);
-        restaurant.setCreatedAt(new Date());
+        restaurant.setUuid(UUID.randomUUID());
+        restaurant.setCreatedAt(Date.from(Instant.now()));
         AddressDto addressDto = restaurantDto.getAddressDto();
         restaurantDto = restaurantMapper.restaurantToRestaurantDtoMapper(restaurantRepository.save(restaurant));
         Address address = addressMapper.addressDtoToAddressMapper(addressDto);
-        address.setCreatedAt(new Date());
+        address.setCreatedAt(Date.from(Instant.now()));
         addressDto = addressMapper.addressToAddressDtoMapper(addressRepository.save(address));
         restaurantDto.setAddressDto(addressDto);
         return restaurantDto;
