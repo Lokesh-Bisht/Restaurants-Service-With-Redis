@@ -69,6 +69,8 @@ public class RestaurantServiceImpl implements RestaurantService {
         updatedRestaurantInfo.setCreatedAt(restaurant.getCreatedAt());
         updatedRestaurantInfo.setUpdatedAt(new Date());
         RestaurantDto restaurantDto = restaurantMapper.restaurantToRestaurantDtoMapper(restaurantRepository.save(updatedRestaurantInfo));
+        AddressDto addressDto = addressMapper.addressToAddressDtoMapper(addressRepository.findByRestaurantId(restaurantId));
+        restaurantDto.setAddressDto(addressDto);
         return restaurantDto;
     }
 }
