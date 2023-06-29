@@ -6,4 +6,5 @@ public enum ErrorCode {
     BAD_REQUEST,
     INVALID_RESOURCE,
     INTERNAL_SERVER_ERROR,
+    RESTAURANT_NOT_FOUND
 }
