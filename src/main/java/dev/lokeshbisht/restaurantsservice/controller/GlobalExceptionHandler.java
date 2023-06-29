@@ -3,6 +3,7 @@ package dev.lokeshbisht.restaurantsservice.controller;
 import dev.lokeshbisht.restaurantsservice.dto.ErrorResponseDto;
 import dev.lokeshbisht.restaurantsservice.enums.ErrorCode;
 import dev.lokeshbisht.restaurantsservice.exceptions.BadRequestException;
+import dev.lokeshbisht.restaurantsservice.exceptions.RestaurantNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,13 @@ public class GlobalExceptionHandler {
         log.error("BadRequestException: {}", ex.getMessage());
         ErrorResponseDto errorResponseDto = new ErrorResponseDto(ErrorCode.BAD_REQUEST, ex.getMessage());
         return new ResponseEntity<>(errorResponseDto, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(RestaurantNotFoundException.class)
+    ResponseEntity<ErrorResponseDto> handleRestaurantNotFoundException(RestaurantNotFoundException ex) {
+        log.error("RestaurantNotFoundException: {}", ex.getMessage());
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(ErrorCode.RESTAURANT_NOT_FOUND, ex.getMessage());
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
