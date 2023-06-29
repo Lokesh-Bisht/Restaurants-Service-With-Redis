@@ -7,20 +7,12 @@ import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
 
 import java.util.List;
-import java.util.UUID;
 
 @Data
 public class RestaurantUpdateRequestDto {
 
     @JsonProperty("name")
     private String name;
-
-    @NotNull(message = "RestaurantId is required")
-    @JsonProperty("id")
-    private Integer restaurantId;
-
-    @JsonProperty("uuid")
-    private UUID uuid;
 
     @NotNull(message = "veg flag is required")
     @JsonProperty("veg")
