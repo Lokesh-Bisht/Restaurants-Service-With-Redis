@@ -1,5 +1,6 @@
 package dev.lokeshbisht.restaurantsservice.controller;
 
+import dev.lokeshbisht.restaurantsservice.dto.restaurants.AddressDto;
 import dev.lokeshbisht.restaurantsservice.dto.restaurants.RestaurantDto;
 import dev.lokeshbisht.restaurantsservice.dto.restaurants.RestaurantUpdateRequestDto;
 import dev.lokeshbisht.restaurantsservice.service.RestaurantService;
@@ -23,5 +24,10 @@ public class RestaurantController {
     @PatchMapping("/restaurant/{restaurantId}")
     public RestaurantDto updateRestaurant(@Valid @RequestBody RestaurantUpdateRequestDto restaurantUpdateRequestDto, @PathVariable Integer restaurantId) {
         return restaurantService.updateRestaurant(restaurantUpdateRequestDto, restaurantId);
+    }
+
+    @PatchMapping("/restaurant/{restaurantId}/address")
+    public AddressDto updateRestaurantAddress(@Valid @RequestBody AddressDto addressDto, @PathVariable Integer restaurantId) {
+        return restaurantService.updateRestaurantAddress(addressDto, restaurantId);
     }
 }
