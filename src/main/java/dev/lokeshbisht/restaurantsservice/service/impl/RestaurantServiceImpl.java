@@ -2,6 +2,8 @@ package dev.lokeshbisht.restaurantsservice.service.impl;
 
 import dev.lokeshbisht.restaurantsservice.dto.restaurants.AddressDto;
 import dev.lokeshbisht.restaurantsservice.dto.restaurants.RestaurantDto;
+import dev.lokeshbisht.restaurantsservice.dto.restaurants.RestaurantUpdateRequestDto;
+import dev.lokeshbisht.restaurantsservice.exceptions.RestaurantNotFoundException;
 import dev.lokeshbisht.restaurantsservice.mapper.AddressMapper;
 import dev.lokeshbisht.restaurantsservice.mapper.RestaurantMapper;
 import dev.lokeshbisht.restaurantsservice.model.Address;
@@ -48,6 +50,26 @@ public class RestaurantServiceImpl implements RestaurantService {
         Address address = addressMapper.addressDtoToAddressMapper(addressDto);
         address.setCreatedAt(Date.from(Instant.now()));
         addressDto = addressMapper.addressToAddressDtoMapper(addressRepository.save(address));
+        restaurantDto.setAddressDto(addressDto);
+        return restaurantDto;
+    }
+
+    @Override
+    public RestaurantDto updateRestaurant(RestaurantUpdateRequestDto restaurantUpdateRequestDto, Integer restaurantId) {
+        logger.info("Update restaurant info: {} for restaurant: {}", restaurantUpdateRequestDto, restaurantId);
+        Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);
+        if (restaurant == null) {
+            throw new RestaurantNotFoundException("Restaurant not found.");
+        }
+        Restaurant updatedRestaurantInfo = restaurantMapper.restaurantUpdateRequestDtoToRestaurantMapper(restaurantUpdateRequestDto);
+        updatedRestaurantInfo.setId(restaurant.getId());
+        updatedRestaurantInfo.setRestaurantId(restaurantId);
+        updatedRestaurantInfo.setUuid(restaurant.getUuid());
+        updatedRestaurantInfo.setCreatedBy(restaurant.getCreatedBy());
+        updatedRestaurantInfo.setCreatedAt(restaurant.getCreatedAt());
+        updatedRestaurantInfo.setUpdatedAt(new Date());
+        RestaurantDto restaurantDto = restaurantMapper.restaurantToRestaurantDtoMapper(restaurantRepository.save(updatedRestaurantInfo));
+        AddressDto addressDto = addressMapper.addressToAddressDtoMapper(addressRepository.findByRestaurantId(restaurantId));
         restaurantDto.setAddressDto(addressDto);
         return restaurantDto;
     }
