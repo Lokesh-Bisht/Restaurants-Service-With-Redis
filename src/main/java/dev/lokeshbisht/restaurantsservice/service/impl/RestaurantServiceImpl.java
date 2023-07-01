@@ -73,4 +73,19 @@ public class RestaurantServiceImpl implements RestaurantService {
         restaurantDto.setAddressDto(addressDto);
         return restaurantDto;
     }
+
+    @Override
+    public AddressDto updateRestaurantAddress(AddressDto addressDto, Integer restaurantId) {
+        logger.info("Update restaurant {} address: {}", restaurantId, addressDto);
+        Address address = addressRepository.findByRestaurantId(restaurantId);
+        if (address == null) {
+            throw new RestaurantNotFoundException("Restaurant not found.");
+        }
+        Address updatedAddress = addressMapper.addressDtoToAddressMapper(addressDto);
+        updatedAddress.setId(address.getId());
+        updatedAddress.setCreatedBy(address.getCreatedBy());
+        updatedAddress.setCreatedAt(address.getCreatedAt());
+        updatedAddress.setUpdatedAt(new Date());
+        return addressMapper.addressToAddressDtoMapper(addressRepository.save(updatedAddress));
+    }
 }
