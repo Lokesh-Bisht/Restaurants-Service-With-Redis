@@ -3,6 +3,7 @@ package dev.lokeshbisht.restaurantsservice.service.impl;
 import dev.lokeshbisht.restaurantsservice.dto.restaurants.AddressDto;
 import dev.lokeshbisht.restaurantsservice.dto.restaurants.RestaurantDto;
 import dev.lokeshbisht.restaurantsservice.dto.restaurants.RestaurantUpdateRequestDto;
+import dev.lokeshbisht.restaurantsservice.exceptions.AddressNotFoundException;
 import dev.lokeshbisht.restaurantsservice.exceptions.RestaurantNotFoundException;
 import dev.lokeshbisht.restaurantsservice.mapper.AddressMapper;
 import dev.lokeshbisht.restaurantsservice.mapper.RestaurantMapper;
@@ -79,7 +80,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         logger.info("Update restaurant {} address: {}", restaurantId, addressDto);
         Address address = addressRepository.findByRestaurantId(restaurantId);
         if (address == null) {
-            throw new RestaurantNotFoundException("Restaurant not found.");
+            throw new AddressNotFoundException("Restaurant address not found.");
         }
         Address updatedAddress = addressMapper.addressDtoToAddressMapper(addressDto);
         updatedAddress.setId(address.getId());
@@ -97,6 +98,9 @@ public class RestaurantServiceImpl implements RestaurantService {
             throw new RestaurantNotFoundException("Restaurant not found.");
         }
         Address address = addressRepository.findByRestaurantId(restaurantId);
+        if (address == null) {
+            throw new AddressNotFoundException("Restaurant address not found.");
+        }
         RestaurantDto restaurantDto = restaurantMapper.restaurantToRestaurantDtoMapper(restaurant);
         AddressDto addressDto = addressMapper.addressToAddressDtoMapper(address);
         restaurantDto.setAddressDto(addressDto);
