@@ -2,6 +2,7 @@ package dev.lokeshbisht.restaurantsservice.controller;
 
 import dev.lokeshbisht.restaurantsservice.dto.ErrorResponseDto;
 import dev.lokeshbisht.restaurantsservice.enums.ErrorCode;
+import dev.lokeshbisht.restaurantsservice.exceptions.AddressNotFoundException;
 import dev.lokeshbisht.restaurantsservice.exceptions.BadRequestException;
 import dev.lokeshbisht.restaurantsservice.exceptions.RestaurantNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,13 @@ public class GlobalExceptionHandler {
     ResponseEntity<ErrorResponseDto> handleRestaurantNotFoundException(RestaurantNotFoundException ex) {
         log.error("RestaurantNotFoundException: {}", ex.getMessage());
         ErrorResponseDto errorResponseDto = new ErrorResponseDto(ErrorCode.RESTAURANT_NOT_FOUND, ex.getMessage());
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(AddressNotFoundException.class)
+    ResponseEntity<ErrorResponseDto> handleAddressNotFoundException(AddressNotFoundException ex) {
+        log.error("AddressNotFoundException: {}", ex.getMessage());
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(ErrorCode.ADDRESS_NOT_FOUND, ex.getMessage());
         return new ResponseEntity<>(errorResponseDto, HttpStatus.NOT_FOUND);
     }
 
