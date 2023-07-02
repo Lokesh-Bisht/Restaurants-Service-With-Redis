@@ -88,4 +88,18 @@ public class RestaurantServiceImpl implements RestaurantService {
         updatedAddress.setUpdatedAt(new Date());
         return addressMapper.addressToAddressDtoMapper(addressRepository.save(updatedAddress));
     }
+
+    @Override
+    public RestaurantDto getRestaurantById(Integer restaurantId) {
+        logger.info("Get restaurant {}", restaurantId);
+        Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);
+        if (restaurant == null) {
+            throw new RestaurantNotFoundException("Restaurant not found.");
+        }
+        Address address = addressRepository.findByRestaurantId(restaurantId);
+        RestaurantDto restaurantDto = restaurantMapper.restaurantToRestaurantDtoMapper(restaurant);
+        AddressDto addressDto = addressMapper.addressToAddressDtoMapper(address);
+        restaurantDto.setAddressDto(addressDto);
+        return restaurantDto;
+    }
 }

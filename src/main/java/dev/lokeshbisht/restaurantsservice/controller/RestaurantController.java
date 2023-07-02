@@ -30,4 +30,9 @@ public class RestaurantController {
     public AddressDto updateRestaurantAddress(@Valid @RequestBody AddressDto addressDto, @PathVariable Integer restaurantId) {
         return restaurantService.updateRestaurantAddress(addressDto, restaurantId);
     }
+
+    @GetMapping("/restaurant/{restaurantId}")
+    public RestaurantDto getRestaurantById(@PathVariable Integer restaurantId) {
+        return restaurantService.getRestaurantById(restaurantId);
+    }
 }
